@@ -7,3 +7,8 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    apikey_authenticator:
+        class: Initiative\AppBundle\Security\ApiKeyAuthenticator
+        arguments: ["@api_key_user_provider"]
+    api_key_user_provider:
+        class: Initiative\AppBundle\Security\ApiKeyUserProvider

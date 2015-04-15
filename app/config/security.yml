@@ -1,15 +1,19 @@
 security:
     providers:
+        api_key_user_provider:
+            id: api_key_user_provider
         in_memory:
             memory: ~
-
+        
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
-        wsse_secured:
+        blabla:
             pattern: /
             stateless: true
-            wsse:   true
+            simple_preauth:
+                authenticator: apikey_authenticator
         default:
             anonymous: ~
+        

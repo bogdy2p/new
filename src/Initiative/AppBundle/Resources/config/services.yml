@@ -1,8 +1,9 @@
 services:
-    wsse.security.authentication.provider:
-        class: Initiative\AppBundle\Security\Authentication\Provider\WsseProvider
-        arguments: ["", "%kernel.cache_dir%/security/nonces"]
-        
-    wsse.security.authentication.listener:
-        class: Initiative\AppBundle\Security\Firewall\WsseListener
-        arguments: ["@security.token_storage","@security.authentication.manager"]
+
+#    wsse.security.authentication.provider:
+#        class: Initiative\AppBundle\Security\Authentication\Provider\WsseProvider
+#        arguments: ["", "%kernel.cache_dir%/security/nonces"]
+#        
+#    wsse.security.authentication.listener:
+#        class: Initiative\AppBundle\Security\Firewall\WsseListener
+#        arguments: ["@security.token_storage","@security.authentication.manager"]
