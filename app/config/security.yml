@@ -7,6 +7,9 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
-
+        wsse_secured:
+            pattern: /
+            stateless: true
+            wsse:   true
         default:
             anonymous: ~
