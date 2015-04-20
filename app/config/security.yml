@@ -2,15 +2,6 @@ security:
     providers:
         api_key_user_provider:
             id: api_key_user_provider
-#        in_memory:
-#            memory: ~      
-#                users:
-#                    ryan:
-#                        password: ryanpass
-#                        roles: 'ROLE_ADMIN'
-#                    admin:
-#                        password: password
-#                        roles: 'ROLE_ADMIN'
         
     firewalls:
         dev:
@@ -23,21 +14,11 @@ security:
                 authenticator: apikey_authenticator
         default:
             anonymous: ~
-#            http_basic: ~
             form_login:
                 login_path: /login
-                default_target_path: /dash
-            logout:
-                invalidate_session: true
-                delete_cookies:
-                    apikey: { path: null, domain:null}
-                    
-                path:   /logout
-                
-                target: /
-            
+                default_target_path: /dash       
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMINISTRATOR }
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
         

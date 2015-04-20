@@ -26,7 +26,6 @@ class DefaultController extends Controller {
      */
     public function dashAction(Request $request) {
 
-
         $securityContext = $this->get('security.context');
         $token = $securityContext->getToken();
 
@@ -42,13 +41,8 @@ class DefaultController extends Controller {
 //            die('YOU ARE AN USER only');
         }
 
-
         $roles = $token->getRoles();
-
-
-        $link_to_logout = $this->generateUrl('customlogout');
-
-
+        $link_to_logout = $this->generateUrl('logout');
         return $this->render('InitiativeAppBundle:Default:indexold.html.twig', array('cookies' => $_COOKIE, 'roles' => $roles, 'logout' => $link_to_logout));
     }
 
@@ -58,14 +52,8 @@ class DefaultController extends Controller {
      */
     public function indexAction() {
 
-
-
-//        var_dump($_COOKIE);
-//        die();
-
-
         $link_to_login_page = $this->generateUrl('initiative_app_default_login');
-        $link_to_logout = $this->generateUrl('customlogout');
+        $link_to_logout = $this->generateUrl('logout');
 
         return array('login' => $link_to_login_page, 'logout' => $link_to_logout);
     }
@@ -75,36 +63,20 @@ class DefaultController extends Controller {
      */
     public function loginAction(Request $request) {
 
-
-        //Clear cookies here :)
-        //Clear cookies here :) <Or , if already logged in , redirect to the dashboard ? :) >
-        //Clear cookies here :)
-
         $formFactory = $this->get('form.factory');
         $formAction = $this->container->getParameter('apiURL') . '/users/authentication';
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('InitiativeAppBundle:Default:login.html.twig', array('formaction' => $formAction, 'last_username' => $lastUsername, 'error' => $error));
-    }
-
-//
-    /**
-     * @Route("/login_check", name="login_check")
-     */
-    public function loginCheckAction() {
-        
+        return $this->render('InitiativeAppBundle:Default:login.html.twig', array('error' => $error));
     }
 
     /**
-     * @Route("/login_check2", name="login_check2")
+     * @Route("/login_check_api", name="login_check_api")
      */
-    public function loginCheck2Action(Request $request) {
-
-        //AICI FACEM VERIFICAREA DACA EXISTA USERUL ( CALL CATRE API USERS AUTHENTICATION , SI PRIMIM API KEY
+    public function loginCheckApiAction(Request $request) {
 
         $client = new Client();
-
         try {
             $guzzle_response = $client->post('missioncontrol/users/authentication', [
                 'body' => [
@@ -113,11 +85,14 @@ class DefaultController extends Controller {
                 ]
             ]);
         } catch (ClientException $e) {
-            echo $e->getRequest();
-            echo $e->getResponse()->getStatusCode();
 
             if ($e->getResponse()->getStatusCode() == 400) {
-                return $this->redirect('login');
+                $authenticationUtils = $this->get('security.authentication_utils');
+                $response_error_string = $e->getResponse()->getBody()->getContents();
+                $response_error_array = json_decode($response_error_string, true);
+                $response_error_message = $response_error_array['message'];
+                $error = $response_error_message;
+                return $this->render('InitiativeAppBundle:Default:login.html.twig', array('error' => $error));
             }
         }
 
@@ -136,38 +111,21 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route ("/customlogout", name="customlogout")
+     * @Route ("/logout", name="logout")
      */
-
-    public function customlogoutAction(Request $request) {
+    public function logoutAction(Request $request) {
 
         $response = new Response();
         $response->headers->clearCookie('apikey');
         $response->send();
-
         return $this->redirect($this->generateUrl('initiative_app_default_index'));
     }
 
     /**
-     * @Route ("/logout")
+     * @Route("/login_check", name="login_check")
      */
-    public function logoutAction(Request $request) {
-
-
-        print_r($request);
-
-
-
-
-        $request->headers->clearCookie('apikey');
-
-        $response = new Response();
-        $response->headers->clearCookie('apikey');
-        $response->send();
-
-        return;
-
-        /// MAYBE SESSION DESTROY AND DELETE COOKIEZ ?
+    public function loginCheckAction() {
+        
     }
 
 }

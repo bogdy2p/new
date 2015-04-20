@@ -2,10 +2,3 @@ initiative_app:
     resource: "@InitiativeAppBundle/Controller/"
     type:     annotation
     prefix:   /
-
-#initiative_app_dash:
-#    resource: "@InitiativeAppBundle/Controller/"
-#    type: annotation
-#    prefix: /dash
-logout:
-    path: /logout
