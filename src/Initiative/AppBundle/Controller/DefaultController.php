@@ -26,10 +26,30 @@ class DefaultController extends Controller {
      */
     public function dashAction(Request $request) {
 
-        print_r($this->get('security.context')->getToken()->getRoles());
-//        print_r($this->get('security.context')->getToken()->getUser()->getRoles());
-        die();
-        return $this->render('InitiativeAppBundle:Default:indexold.html.twig', array('cookies' => $_COOKIE));
+
+        $securityContext = $this->get('security.context');
+        $token = $securityContext->getToken();
+
+        if ($securityContext->isGranted('ROLE_ADMINISTRATOR')) {
+//            die('YOU ARE AN ADMINISTRATOR');
+        }
+
+        if ($securityContext->isGranted('ROLE_CONTRIBUTOR')) {
+//            die('YOU ARE AN CONTRIB');
+        }
+
+        if ($securityContext->isGranted('ROLE_USER')) {
+//            die('YOU ARE AN USER only');
+        }
+
+
+        $roles = $token->getRoles();
+
+
+        $link_to_logout = $this->generateUrl('customlogout');
+
+
+        return $this->render('InitiativeAppBundle:Default:indexold.html.twig', array('cookies' => $_COOKIE, 'roles' => $roles, 'logout' => $link_to_logout));
     }
 
     /**
@@ -39,11 +59,15 @@ class DefaultController extends Controller {
     public function indexAction() {
 
 
+
+//        var_dump($_COOKIE);
+//        die();
+
+
         $link_to_login_page = $this->generateUrl('initiative_app_default_login');
-        $link_to_logout = $this->generateUrl('logout');
+        $link_to_logout = $this->generateUrl('customlogout');
 
         return array('login' => $link_to_login_page, 'logout' => $link_to_logout);
-
     }
 
     /**
@@ -51,11 +75,11 @@ class DefaultController extends Controller {
      */
     public function loginAction(Request $request) {
 
-        
+
         //Clear cookies here :)
         //Clear cookies here :) <Or , if already logged in , redirect to the dashboard ? :) >
         //Clear cookies here :)
-        
+
         $formFactory = $this->get('form.factory');
         $formAction = $this->container->getParameter('apiURL') . '/users/authentication';
         $authenticationUtils = $this->get('security.authentication_utils');
@@ -63,6 +87,7 @@ class DefaultController extends Controller {
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('InitiativeAppBundle:Default:login.html.twig', array('formaction' => $formAction, 'last_username' => $lastUsername, 'error' => $error));
     }
+
 //
     /**
      * @Route("/login_check", name="login_check")
@@ -103,7 +128,7 @@ class DefaultController extends Controller {
             $apikey = $response_array['API_KEY'];
 
             $response = new Response();
-            $response->headers->setCookie(new Cookie("apikey", $apikey));
+            $response->headers->setCookie(new Cookie("apikey", $apikey, time() + 3600, '/', null, false, false));
             $response->send();
 
             return $this->redirect('dash');
@@ -111,10 +136,38 @@ class DefaultController extends Controller {
     }
 
     /**
+     * @Route ("/customlogout", name="customlogout")
+     */
+
+    public function customlogoutAction(Request $request) {
+
+        $response = new Response();
+        $response->headers->clearCookie('apikey');
+        $response->send();
+
+        return $this->redirect($this->generateUrl('initiative_app_default_index'));
+    }
+
+    /**
      * @Route ("/logout")
      */
-    public function logoutAction() {
+    public function logoutAction(Request $request) {
+
+
+        print_r($request);
+
+
+
+
+        $request->headers->clearCookie('apikey');
+
+        $response = new Response();
+        $response->headers->clearCookie('apikey');
+        $response->send();
+
+        return;
 
         /// MAYBE SESSION DESTROY AND DELETE COOKIEZ ?
     }
+
 }

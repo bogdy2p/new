@@ -3,7 +3,7 @@
 {% block body %}
     
     
-Helloz {{ dump(app.session.all) }}
+Helloz {{ dump(roles) }}
 <br />
 
 {{ dump(cookies) }}
@@ -12,6 +12,7 @@ Helloz {{ dump(app.session.all) }}
 You are authenticated using this information :
 <br />  
 
+<a href="{{ logout }}">Logout</a>
 
 
     {% endblock body %}

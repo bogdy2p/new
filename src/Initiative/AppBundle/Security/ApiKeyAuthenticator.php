@@ -47,7 +47,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface {
                 $user, $apiKey, $providerKey, $user_roles_from_api_key
         );
 //        var_dump($newToken);
-        
+//        
 //        die();
         return $newToken;
         
