@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
 use Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider;
 use Symfony\Component\HttpFoundation\Cookie;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class DefaultController extends Controller {
 
@@ -25,11 +26,10 @@ class DefaultController extends Controller {
      */
     public function dashAction(Request $request) {
 
-        var_dump($request->headers);
+        print_r($this->get('security.context')->getToken()->getRoles());
+//        print_r($this->get('security.context')->getToken()->getUser()->getRoles());
         die();
-        
-        return $this->render('InitiativeAppBundle:Default:indexold.html.twig',array('cookies' => $_COOKIE)); 
-        return new Response('Admin page !');
+        return $this->render('InitiativeAppBundle:Default:indexold.html.twig', array('cookies' => $_COOKIE));
     }
 
     /**
@@ -44,8 +44,6 @@ class DefaultController extends Controller {
 
         return array('login' => $link_to_login_page, 'logout' => $link_to_logout);
 
-        $token = $this->get('security.context')->getToken();
-        $roles = $token->getRoles();
     }
 
     /**
@@ -53,29 +51,19 @@ class DefaultController extends Controller {
      */
     public function loginAction(Request $request) {
 
+        
+        //Clear cookies here :)
+        //Clear cookies here :) <Or , if already logged in , redirect to the dashboard ? :) >
+        //Clear cookies here :)
+        
         $formFactory = $this->get('form.factory');
-
-//        $form = $formFactory->createBuilder()
-//                ->setAction($this->container->getParameter('apiURL') . '/users/authentication')
-//                ->setMethod("POST")
-//                ->add('username', 'text')
-//                ->add('password', 'password')
-//                ->add('submit', 'submit', array('label' => 'Submit'))
-//                ->getForm();
-////        
-////
-//        return $this->render('InitiativeAppBundle:Default:login.html.twig', array('form' => $form->createView()));
-//        
         $formAction = $this->container->getParameter('apiURL') . '/users/authentication';
         $authenticationUtils = $this->get('security.authentication_utils');
-
         $error = $authenticationUtils->getLastAuthenticationError();
-
         $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render('InitiativeAppBundle:Default:login.html.twig', array('formaction' => $formAction, 'last_username' => $lastUsername, 'error' => $error));
     }
-
+//
     /**
      * @Route("/login_check", name="login_check")
      */
@@ -91,16 +79,21 @@ class DefaultController extends Controller {
         //AICI FACEM VERIFICAREA DACA EXISTA USERUL ( CALL CATRE API USERS AUTHENTICATION , SI PRIMIM API KEY
 
         $client = new Client();
-        
-        try{
-        $guzzle_response = $client->post('missioncontrol/users/authentication', [
-            'body' => [
-                'username' => $request->get('username'),
-                'password' => $request->get('password')
-            ]
-        ]);
-        } catch (Exception $e){
-            die();
+
+        try {
+            $guzzle_response = $client->post('missioncontrol/users/authentication', [
+                'body' => [
+                    'username' => $request->get('username'),
+                    'password' => $request->get('password')
+                ]
+            ]);
+        } catch (ClientException $e) {
+            echo $e->getRequest();
+            echo $e->getResponse()->getStatusCode();
+
+            if ($e->getResponse()->getStatusCode() == 400) {
+                return $this->redirect('login');
+            }
         }
 
         if ($guzzle_response->getStatusCode() == 201) {
@@ -112,55 +105,16 @@ class DefaultController extends Controller {
             $response = new Response();
             $response->headers->setCookie(new Cookie("apikey", $apikey));
             $response->send();
-            
+
             return $this->redirect('dash');
-            
-        } 
-            die('IM DEAD');
-        
+        }
     }
 
-//    /**
-//     * @Route ("/logout")
-//     */
-//    public function logoutAction() {
-//
-//        /// MAYBE SESSION DESTROY AND DELETE COOKIEZ ?
-//    }
-//    /**
-//     * @Route ("/test")
-//     */
-//    public function testAction() {
-//        var_dump($this->container);
-//        die();
-//
-//
-//        $formFactory = $this->get('form.factory');
-//
-//        $form = $formFactory->createBuilder()
-//                ->setAction($this->container->getParameter('apiURL') . '/users/authentication')
-//                ->setMethod("POST")
-//                ->add('username', 'text')
-//                ->add('password', 'password')
-//                ->add('submit', 'submit', array('label' => 'Submit'))
-//                ->getForm();
-//        $this->render('InitiativeAppBundle:Default:login.html.twig', array('form' => $form->createView()));
-//
-//        $request = Request::createFromGlobals();
-//
-//        $form->handleRequest($request);
-//
-//        if ($form->isValid()) {
-//            $data = $form->getData();
-//            print_r($data);
-//        }
-//
-//        $response = new RedirectResponse('#');
-//        $response->prepare($request);
-//
-//        var_dump($request->request);
-//        die();
-//
-//        return $response->send();
-//    }
+    /**
+     * @Route ("/logout")
+     */
+    public function logoutAction() {
+
+        /// MAYBE SESSION DESTROY AND DELETE COOKIEZ ?
+    }
 }

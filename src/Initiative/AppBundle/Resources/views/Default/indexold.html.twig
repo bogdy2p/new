@@ -3,7 +3,11 @@
 {% block body %}
     
     
-Helloz {{ dump(cookies) }}!
+Helloz {{ dump(app.session.all) }}
+<br />
+
+{{ dump(cookies) }}
+
 <br />
 You are authenticated using this information :
 <br />  

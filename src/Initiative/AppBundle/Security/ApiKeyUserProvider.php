@@ -55,6 +55,7 @@ class ApiKeyUserProvider implements UserProviderInterface {
                 $username, null,
                 //The roles for the user.
                 //Better determine based on the user.
+//                self::getUserRolesForApiKey($apiKey)
                 array('ROLE_USER')
         );
     }

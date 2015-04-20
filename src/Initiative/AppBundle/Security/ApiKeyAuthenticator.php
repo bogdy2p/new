@@ -20,9 +20,10 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface {
 
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey) {
         $apiKey = $token->getCredentials();
+        
+        
         $username = $this->userProvider->getUsernameForApiKey($apiKey);
         $user_roles_from_api_key = $this->userProvider->getUserRolesForApiKey($apiKey);
-        //print_r($user_roles);
     
         $user = $token->getUser();
         if ($user instanceof User) {
@@ -41,31 +42,30 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface {
         }
 
         $user = $this->userProvider->loadUserByUsername($username);
-       
-//        die('IM DEAD');
-
-        return new PreAuthenticatedToken(
+        
+        $newToken =  new PreAuthenticatedToken(
                 $user, $apiKey, $providerKey, $user_roles_from_api_key
         );
+//        var_dump($newToken);
+        
+//        die();
+        return $newToken;
+        
     }
 
     public function createToken(Request $request, $providerKey) {
-//        die('Dead line 53');
-        
-//        var_dump($request->headers);
-        
-//        die();
+
         $apiKey = $request->headers->get('apikey');
-        $apiKey = $request->cookies->get('apikey');
-        
-        
+        $apiKey = $request->cookies->get('apikey');        
         
         if (!$apiKey) {
             throw new BadCredentialsException('No API key found');
         }
 
+        $user_roles_from_api_key = $this->userProvider->getUserRolesForApiKey($apiKey);
+        
         return new PreAuthenticatedToken(
-                'anon.', $apiKey, $providerKey
+                'anon.', $apiKey, $providerKey ,$user_roles_from_api_key
         );
     }
 
