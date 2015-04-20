@@ -1,0 +1,18 @@
+{% if error %}
+    <div>{{ error.message }}</div>
+{% endif %}
+
+<form action="{{ path('login_check2') }}" method="post">
+
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" value="{{ last_username }}" />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"/>
+
+{#    <input type="hidden" id="_target_path" value="/asd" />#}
+
+    <input type="submit" name="login"/>
+
+</form>

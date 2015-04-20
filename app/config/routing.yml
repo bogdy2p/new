@@ -3,6 +3,9 @@ initiative_app:
     type:     annotation
     prefix:   /
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+#initiative_app_dash:
+#    resource: "@InitiativeAppBundle/Controller/"
+#    type: annotation
+#    prefix: /dash
+logout:
+    path: /logout

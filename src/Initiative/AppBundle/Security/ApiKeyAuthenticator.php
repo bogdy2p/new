@@ -21,16 +21,16 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface {
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey) {
         $apiKey = $token->getCredentials();
         $username = $this->userProvider->getUsernameForApiKey($apiKey);
-
-        
-        
+        $user_roles_from_api_key = $this->userProvider->getUserRolesForApiKey($apiKey);
+        //print_r($user_roles);
+    
         $user = $token->getUser();
         if ($user instanceof User) {
             return new PreAuthenticatedToken(
                     $user,
                     $apiKey,
                     $providerKey,
-                    $user->getRoles()
+                    $user_roles_from_api_key
                     );
         }
         
@@ -41,15 +41,25 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface {
         }
 
         $user = $this->userProvider->loadUserByUsername($username);
+       
+//        die('IM DEAD');
 
         return new PreAuthenticatedToken(
-                $user, $apiKey, $providerKey, $user->getRoles()
+                $user, $apiKey, $providerKey, $user_roles_from_api_key
         );
     }
 
     public function createToken(Request $request, $providerKey) {
-        $apiKey = $request->query->get('apikey');
-
+//        die('Dead line 53');
+        
+//        var_dump($request->headers);
+        
+//        die();
+        $apiKey = $request->headers->get('apikey');
+        $apiKey = $request->cookies->get('apikey');
+        
+        
+        
         if (!$apiKey) {
             throw new BadCredentialsException('No API key found');
         }

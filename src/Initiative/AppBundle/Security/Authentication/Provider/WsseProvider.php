@@ -1,4 +1,4 @@
-<?php
+<!--
 
 namespace Initiative\AppBundle\Security\Authentication\Provider;
 

@@ -1,1 +1,13 @@
-Hello {{ name }}!
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    THIS IS A PAGE THAT CAN BE SEEN WITHOUT BEING AUTHENTICATED.
+    <br />
+    <a href=" {{ login }}">Login</a>
+    <br />
+
+     <a href="{{ logout }}">Logout</a>
+    <br />
+{% endblock body %}
+
