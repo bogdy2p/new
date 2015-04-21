@@ -1,7 +1,3 @@
-{#{% if error %}
-    <div>{{ error }}</div>
-{% endif %}#}
-
 <form role="form" id="login_form2" action="{{ path('login_check_api') }}" method="post">
     <div class="form-group">
         <label class="float_label no-border" for="username">username</label>
@@ -29,14 +25,16 @@
             </div>
         </div>
     </div>
-
+    {% if error %}
+        <div>{{ error }}</div>
+    {% endif %}
     <button type="submit" class="btn btn-default hidden">Submit</button>
-<div id="submitBtn_container">
-    <div id="submitBtn">
+    <div id="submitBtn_container">
+        <div id="submitBtn">
             {% include 'InitiativeAppBundle:Default:Login/enter_svg.html.twig' %}
+        </div>
     </div>
-</div>
-        
+
 </form>
 
 
@@ -45,4 +43,3 @@
 <button type="submit" class="btn btn-default hidden">Submit</button>
 <div id="submitBtn_container">
     <div id="submitBtn">
-   

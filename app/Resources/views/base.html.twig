@@ -22,8 +22,8 @@
             <script src="{{ asset('js/jquery.min.js') }} "></script>
 
             <script>
-                apiUrl = 'www.google.ro';
-                fileUrl = 'www.google2.ro';
+                apiUrl = 'THISWOULDBETHEAPIURLUSEDINSOMECALLS';
+                fileUrl = 'THISWOULDBETHE_FILE_URLUSEDINSOMECALLS';
             </script>
 
         {% endblock %}
@@ -31,7 +31,30 @@
 
     </head>
     <body>
+
         {% block body %}
+            {% block header %}
+
+                <div class="alert_bar"></div>
+
+                <div class="loading_ico"></div>
+
+
+
+            {% endblock %}
+            <div id=\"main-content\" class=\"min-height\">
+
+
+                <h1> AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA </h1>
+
+
+                {# echo $view->render('InitiativeAppBundle:Inc:header.html.php');
+                 echo $view->render('InitiativeAppBundle:Inc:navigation.html.php');
+                 //}
+    {#           #}
+
+
+                #}
 
 
 
@@ -43,12 +66,7 @@
 
 
 
-
-
-
-
-
-        {% endblock %}
+            {% endblock %}
 
 
 
@@ -57,40 +75,49 @@
 
 
 
-        {% block javascripts %}
-            <script src="{{ asset('js/less.min.js') }}"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-            <script src="{{ asset('js/app.js') }}"></script>
-            <script src="{{ asset('js/jquery.tablesorter.min.js') }}"></script>
-            <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-            <script src="{{ asset('js/jquery.dataTables.bootstrap.js') }}"></script>
-            <script src="{{ asset('js/handlebars.min.js') }}"></script>
-            <script src="{{ asset('js/jquery.lazylinepainter-1.4.1.min.js') }}"></script>
-            <script src="{{ asset('js/script.js') }}"></script>
-            <!-- CHARTS -->
-            <script src="{{ asset('js/charts/highcharts.js') }}"></script>
-            <script src="{{ asset('js/charts/exporting.js') }}"></script>
-            <script src="{{ asset('js/charts/saveSvgAsPng.js') }}"></script>
-            <script src="{{ asset('js/charts/styleOptions.js') }}"></script>
-            <script src="{{ asset('js/charts/styleOptions2.js') }}"></script>
-            <script src="{{ asset('js/raphael-min.js') }}"></script>
-            <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
-            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-            <script src="{{ asset('js/d3.min.js') }}"></script>
-            <script src="{{ asset('js/hexaflip.js') }}"></script>
-            <script src="{{ asset('js/jquery.fullPage.min.js') }}"></script>
-            <script src="{{ asset('js/parallax.min.js') }}"></script>
-            <script src="{{ asset('js/circle-progress.js') }}"></script>
-            <script src="{{ asset('js/jquery.mousewheel.min.js') }}"></script>
-            <script src="{{ asset('js/wheel.js') }}"></script>
-            <script src="{{ asset('js/nav_wheel.js') }}"></script>
-            <script src="{{ asset('js/status.js') }}"></script>
-            <script src="{{ asset('js/excel.js') }}"></script>
-            <script src="{{ asset('js/jquery-ui.js') }}"></script>
-            <script src="{{ asset('js/jquery.svg.min.js') }}"></script>
-            <script src="{{ asset('js/jquery.svganim.min.js') }}"></script>
-            <script src="{{ asset('js/dropzone.js') }}"></script>
-            <script src="{{ asset('js/jquery-te-1.4.0.min.js') }}"></script>
-        {% endblock %}
-    </body>
-</html>
+            {% block javascripts %}
+                <script src="{{ asset('js/less.min.js') }}"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+                <script src="{{ asset('js/app.js') }}"></script>
+                <script src="{{ asset('js/jquery.tablesorter.min.js') }}"></script>
+                <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+                <script src="{{ asset('js/jquery.dataTables.bootstrap.js') }}"></script>
+                <script src="{{ asset('js/handlebars.min.js') }}"></script>
+                <script src="{{ asset('js/jquery.lazylinepainter-1.4.1.min.js') }}"></script>
+                <script src="{{ asset('js/script.js') }}"></script>
+                <!-- CHARTS -->
+                <script src="{{ asset('js/charts/highcharts.js') }}"></script>
+                <script src="{{ asset('js/charts/exporting.js') }}"></script>
+                <script src="{{ asset('js/charts/saveSvgAsPng.js') }}"></script>
+                <script src="{{ asset('js/charts/styleOptions.js') }}"></script>
+                <script src="{{ asset('js/charts/styleOptions2.js') }}"></script>
+                <script src="{{ asset('js/raphael-min.js') }}"></script>
+                <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+                <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+                <script src="{{ asset('js/d3.min.js') }}"></script>
+                <script src="{{ asset('js/hexaflip.js') }}"></script>
+                <script src="{{ asset('js/jquery.fullPage.min.js') }}"></script>
+                <script src="{{ asset('js/parallax.min.js') }}"></script>
+                <script src="{{ asset('js/circle-progress.js') }}"></script>
+                <script src="{{ asset('js/jquery.mousewheel.min.js') }}"></script>
+                <script src="{{ asset('js/wheel.js') }}"></script>
+                <script src="{{ asset('js/nav_wheel.js') }}"></script>
+                <script src="{{ asset('js/status.js') }}"></script>
+                <script src="{{ asset('js/excel.js') }}"></script>
+                <script src="{{ asset('js/jquery-ui.js') }}"></script>
+                <script src="{{ asset('js/jquery.svg.min.js') }}"></script>
+                <script src="{{ asset('js/jquery.svganim.min.js') }}"></script>
+                <script src="{{ asset('js/dropzone.js') }}"></script>
+                <script src="{{ asset('js/jquery-te-1.4.0.min.js') }}"></script>
+
+
+
+
+                <script src="http://handsontable.com/dist/handsontable.full.js"></script>
+                <link rel="stylesheet" media="screen" href="http://handsontable.com/dist/handsontable.full.css">
+
+
+
+            {% endblock %}
+            </body>
+            </html>

@@ -29,11 +29,22 @@ class DefaultController extends Controller {
         $securityContext = $this->get('security.context');
         $token = $securityContext->getToken();
         $user = $token->getUser();
+        $navigation = array(
+            'homepage' => '/',
+            'assignments' => '/my_tasks',
+            'url3' => 'asd3',
+            'url4' => 'asd4',
+            'url5' => 'asd5',
+        );
+
+
+//        var_dump($token);
+//        die();
 
         $roles = $token->getRoles();
 
         $link_to_logout = $this->generateUrl('logout');
-        return $this->render('InitiativeAppBundle:Default:indexold.html.twig', array('roles' => $roles, 'logout' => $link_to_logout, 'user'=> $user));
+        return $this->render('InitiativeAppBundle:Default:Dash.html.twig', array('roles' => $roles, 'logout' => $link_to_logout, 'user' => $user, 'navigation' => $navigation));
     }
 
     /**
@@ -58,17 +69,21 @@ class DefaultController extends Controller {
      */
     public function loginAction(Request $request) {
 
+
+
+
+
         $template = array(
             'login_video' => 'video.mp4',
             'login_image' => 'unilever.png',
             'login_logo' => 'logo.png',
             'login_title' => 'Pbc Title'
-            );
-        
-        
+        );
+
+
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
-        return $this->render('InitiativeAppBundle:Default:Login/login.html.twig', array('error' => $error,'template' => $template));
+        return $this->render('InitiativeAppBundle:Default:Login/Login.html.twig', array('error' => $error, 'template' => $template));
     }
 
     /**
@@ -92,7 +107,7 @@ class DefaultController extends Controller {
                 $response_error_array = json_decode($response_error_string, true);
                 $response_error_message = $response_error_array['message'];
                 $error = $response_error_message;
-                return $this->render('InitiativeAppBundle:Default:login.html.twig', array('error' => $error));
+                return $this->render('InitiativeAppBundle:Default:Login.html.twig', array('error' => $error));
             }
         }
 
