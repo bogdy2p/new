@@ -1,18 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    
-    
-Helloz {{ dump(roles) }}
-<br />
-
-{{ dump(cookies) }}
-
-<br />
-You are authenticated using this information :
-<br />  
-
-<a href="{{ logout }}">Logout</a>
 
 
-    {% endblock body %}
+    Helloz {{ user.username }}
+    <br />
+
+
+
+    <a href="{{ logout }}">Logout</a>
+
+
+{% endblock body %}

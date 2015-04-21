@@ -28,22 +28,13 @@ class DefaultController extends Controller {
 
         $securityContext = $this->get('security.context');
         $token = $securityContext->getToken();
+        $user = $token->getUser();
 
-        if ($securityContext->isGranted('ROLE_ADMINISTRATOR')) {
-//            die('YOU ARE AN ADMINISTRATOR');
-        }
-
-        if ($securityContext->isGranted('ROLE_CONTRIBUTOR')) {
-//            die('YOU ARE AN CONTRIB');
-        }
-
-        if ($securityContext->isGranted('ROLE_USER')) {
-//            die('YOU ARE AN USER only');
-        }
 
         $roles = $token->getRoles();
+
         $link_to_logout = $this->generateUrl('logout');
-        return $this->render('InitiativeAppBundle:Default:indexold.html.twig', array('cookies' => $_COOKIE, 'roles' => $roles, 'logout' => $link_to_logout));
+        return $this->render('InitiativeAppBundle:Default:indexold.html.twig', array('roles' => $roles, 'logout' => $link_to_logout, 'user'=> $user));
     }
 
     /**
@@ -52,10 +43,15 @@ class DefaultController extends Controller {
      */
     public function indexAction() {
 
-        $link_to_login_page = $this->generateUrl('initiative_app_default_login');
-        $link_to_logout = $this->generateUrl('logout');
+        //If there is a cookie with the user's API KEY , consider him logged in and redirect him to the DASHBOARD.
+        $dash_link = $this->generateUrl('dash');
+        if (isset($_COOKIE['apikey'])) {
+            return $this->redirect($dash_link);
+        }
 
-        return array('login' => $link_to_login_page, 'logout' => $link_to_logout);
+        //Else display him the login form 
+        $link_to_login_page = $this->generateUrl('initiative_app_default_login');
+        return array('login' => $link_to_login_page);
     }
 
     /**
@@ -63,11 +59,11 @@ class DefaultController extends Controller {
      */
     public function loginAction(Request $request) {
 
-        $formFactory = $this->get('form.factory');
-        $formAction = $this->container->getParameter('apiURL') . '/users/authentication';
+//        $formFactory = $this->get('form.factory');
+//        $formAction = $this->container->getParameter('apiURL') . '/users/authentication';
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
+//        $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('InitiativeAppBundle:Default:login.html.twig', array('error' => $error));
     }
 
@@ -103,7 +99,8 @@ class DefaultController extends Controller {
             $apikey = $response_array['API_KEY'];
 
             $response = new Response();
-            $response->headers->setCookie(new Cookie("apikey", $apikey, time() + 3600, '/', null, false, false));
+            $time_to_live = 900; // 900 seconds (15 mins) After that should re-login ?
+            $response->headers->setCookie(new Cookie("apikey", $apikey, time() + $time_to_live, '/', null, false, false));
             $response->send();
 
             return $this->redirect('dash');

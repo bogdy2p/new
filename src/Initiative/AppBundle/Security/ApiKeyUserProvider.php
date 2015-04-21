@@ -16,7 +16,6 @@ class ApiKeyUserProvider implements UserProviderInterface {
 
         //Default the return value to empty (Will consider not authenticated with wsse)
         $username = '';
-
         //Instantiate a new Guzzle Client to make a API request.
         $client = new Client();
 
@@ -40,7 +39,7 @@ class ApiKeyUserProvider implements UserProviderInterface {
     }
 
     public function getUserRolesForApiKey($apiKey) {
-        
+
         $client = new Client();
         $response = $client->post('missioncontrol/users/authenticationbyapi', ['body' => ['apikey' => $apiKey]]);
         $response_string = $response->getBody()->getContents();
@@ -50,13 +49,23 @@ class ApiKeyUserProvider implements UserProviderInterface {
     }
 
     public function loadUserByUsername($username) {
-        
+
         return new User(
                 $username, null,
                 //The roles for the user.
                 //Better determine based on the user.
-//                self::getUserRolesForApiKey($apiKey)
+//                $this->getUserRolesForApiKey($apiKey)
                 array('ROLE_USER')
+        );
+    }
+
+    public function loadUserByUsernameAndApiKey($username, $apiKey) {
+        return new User(
+                $username, null,
+                //The roles for the user.
+                //Better determine based on the user.
+                $this->getUserRolesForApiKey($apiKey)
+//                array('ROLE_USER')
         );
     }
 
