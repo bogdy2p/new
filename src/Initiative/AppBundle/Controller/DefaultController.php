@@ -30,7 +30,6 @@ class DefaultController extends Controller {
         $token = $securityContext->getToken();
         $user = $token->getUser();
 
-
         $roles = $token->getRoles();
 
         $link_to_logout = $this->generateUrl('logout');
@@ -59,12 +58,17 @@ class DefaultController extends Controller {
      */
     public function loginAction(Request $request) {
 
-//        $formFactory = $this->get('form.factory');
-//        $formAction = $this->container->getParameter('apiURL') . '/users/authentication';
+        $template = array(
+            'login_video' => 'video.mp4',
+            'login_image' => 'unilever.png',
+            'login_logo' => 'logo.png',
+            'login_title' => 'Pbc Title'
+            );
+        
+        
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
-//        $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('InitiativeAppBundle:Default:login.html.twig', array('error' => $error));
+        return $this->render('InitiativeAppBundle:Default:Login/login.html.twig', array('error' => $error,'template' => $template));
     }
 
     /**

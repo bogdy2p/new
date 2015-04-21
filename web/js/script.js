@@ -12,32 +12,32 @@ $(function() {
 });
 
 
-$(document).on('click', '.delete_file', function(event) {
-    event.preventDefault();
-    var response = confirm('Are you sure you want to delete this file?');
-    if(!response) { return null; }
-    var fileId = $(this).attr('data-fileId');
-    var formURL = apiUrl+"files/"+fileId;
-
-    $.ajax({
-        url : formURL,
-        type: 'PUT',
-        headers: { 
-            'x-wsse': 'ApiKey="'+api+'"'
-        },
-        success:function removeFile(data, textStatus, jqXHR) {
-            if($('tr[data-fileId="'+fileId+'"]').length) {
-                $('tr[data-fileId="'+fileId+'"]').fadeOut('fast');
-            }
-            console.dir(data);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
-        }
-    });
-});
+//$(document).on('click', '.delete_file', function(event) {
+//    event.preventDefault();
+//    var response = confirm('Are you sure you want to delete this file?');
+//    if(!response) { return null; }
+//    var fileId = $(this).attr('data-fileId');
+//    var formURL = apiUrl+"files/"+fileId;
+//
+//    $.ajax({
+//        url : formURL,
+//        type: 'PUT',
+//        headers: { 
+//            'x-wsse': 'ApiKey="'+api+'"'
+//        },
+//        success:function removeFile(data, textStatus, jqXHR) {
+//            if($('tr[data-fileId="'+fileId+'"]').length) {
+//                $('tr[data-fileId="'+fileId+'"]').fadeOut('fast');
+//            }
+//            console.dir(data);
+//        },
+//        error: function(jqXHR, textStatus, errorThrown) {
+//            console.log(jqXHR);
+//            console.log(textStatus);
+//            console.log(errorThrown);
+//        }
+//    });
+//});
 
 
 function testHoney() {

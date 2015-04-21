@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+    
+    <div class="fullPage fullPageLogin">
+        <video autoplay loop muted id="bgvid">
+            <source src="img/{{ template.login_video }}" type="video/mp4">
+        </video>
+
+        <img src="img/{{ template.login_logo }}" class="logo_login">
+        <div class="login_section">
+            <h1 class="evo-header-bigger evo-white evo-text-center padding-bottom-0">
+                <img src="img/{{ template.login_image }}" style="width: 50px;">
+                <span>{{ template.login_title }}</span></h1>
+
+            {% include "InitiativeAppBundle:Default:Login/loginform.html.twig" %}
+        </div>
+    </div>
+            
+            
+{% endblock body %}
