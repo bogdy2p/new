@@ -2,12 +2,89 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}InitiatiVe Pbc Version{% endblock %}</title>
+
+        {% block stylesheets %}
+
+            <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+            <link href='http://fonts.googleapis.com/css?family=Ropa+Sans:400,400italic' rel='stylesheet' type='text/css'>
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/normalize.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/responsive-nav.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.fullPage.css')  }}">
+            <link rel="stylesheet/less" type="text/css" href="{{ asset('css/main.less') }} ">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-te-1.4.0.css') }} ">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+            <script src="{{ asset('js/jquery.min.js') }} "></script>
+
+            {#            <script>
+                            apiUrl = '{{ apiUrl }}';
+                            fileUrl = '{{fileUrl}}';
+                        </script>
+            #}
+
+
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+
+
+        {% endblock %}
+
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    {% block body %}{% endblock %}
+    {% block javascripts %}
+
+
+        <script src="{{ asset('js/less.min.js') }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/jquery.tablesorter.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.dataTables.bootstrap.js') }}"></script>
+        <script src="{{ asset('js/handlebars.min.js') }}"></script>
+
+        <script src="{{ asset('js/jquery.lazylinepainter-1.4.1.min.js') }}"></script>
+
+
+        <script src="{{ asset('js/script.js') }}"></script>
+
+        <!-- CHARTS -->
+        <script src="{{ asset('js/charts/highcharts.js') }}"></script>
+        <script src="{{ asset('js/charts/exporting.js') }}"></script>
+        <script src="{{ asset('js/charts/saveSvgAsPng.js') }}"></script>
+        <script src="{{ asset('js/charts/styleOptions.js') }}"></script>
+        <script src="{{ asset('js/charts/styleOptions2.js') }}"></script>
+
+        <script src="{{ asset('js/raphael-min.js') }}"></script>
+        <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/d3.min.js') }}"></script>
+        <script src="{{ asset('js/hexaflip.js') }}"></script>
+        <script src="{{ asset('js/jquery.fullPage.min.js') }}"></script>
+        <script src="{{ asset('js/parallax.min.js') }}"></script>
+
+
+        <script src="{{ asset('js/circle-progress.js') }}"></script>
+        <script src="{{ asset('js/jquery.mousewheel.min.js') }}"></script>
+        <script src="{{ asset('js/wheel.js') }}"></script>
+        <script src="{{ asset('js/nav_wheel.js') }}"></script>
+        <script src="{{ asset('js/status.js') }}"></script>
+
+        <script src="{{ asset('js/excel.js') }}"></script>
+        <script src="{{ asset('js/jquery-ui.js') }}"></script>
+        <script src="{{ asset('js/jquery.svg.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.svganim.min.js') }}"></script>
+        <script src="{{ asset('js/dropzone.js') }}"></script>
+        <script src="{{ asset('js/jquery-te-1.4.0.min.js') }}"></script>
+
+
+    {% endblock %}
+</body>
 </html>
