@@ -85,7 +85,7 @@ if(isset($_COOKIE['api'])) {
 		</div>
 
 		<div class="col-xs-12">
-			<a href="<?php echo $view['router']->generate('initiative_app_allProjects') ?>" class="hamburger_ico btn_action<?php
+			<a href="{{ navigation.url4 }}" class="hamburger_ico btn_action<?php
 				if ($routeName == "initiative_app_allProjects") {
 					echo " active";
 				}
@@ -98,7 +98,7 @@ if(isset($_COOKIE['api'])) {
 		</div>
 
 		<div class="col-xs-12">
-			<a href="<?php echo $view['router']->generate('initiative_app_allFiles') ?>" class="hamburger_ico btn_action<?php
+			<a href="{{ navigation.url4 }}" class="hamburger_ico btn_action<?php
 				if ($routeName == "initiative_app_allFiles") {
 					echo " active";
 				}
@@ -111,7 +111,7 @@ if(isset($_COOKIE['api'])) {
 		</div>
 
 		<div class="col-xs-12">
-			<a href="<?php echo $view['router']->generate('initiative_app_goldenRules') ?>" class="hamburger_ico btn_action<?php
+			<a href="{{ navigation.goldenrules }}" class="hamburger_ico btn_action<?php
 				if ($routeName == "initiative_app_goldenRules") {
 					echo " active";
 				}
@@ -124,7 +124,7 @@ if(isset($_COOKIE['api'])) {
 		</div>
 
 		<div class="col-xs-12">
-			<a href="<?php echo $this->container->getParameter('adminUrl'); ?>" target="_blank" class="hamburger_ico btn_action<?php
+			<a href="{{ navigation.adminurl }}" target="_blank" class="hamburger_ico btn_action<?php
 				if ($routeName == "initiative_app_admin") {
 					echo " active";
 				}
@@ -175,7 +175,7 @@ if(isset($_COOKIE['api'])) {
 </div>
 
 
-<div class="col-xs-1 sidePanel <?php if($routeName == "initiative_app_login") {echo "hidden";}?>
+<div class="sidePanel col-xs-1<?php if($routeName == "initiative_app_login") {echo "hidden";}?>
 
 <!-- 	<div class="evo_action_ico">
 		<a href="<?php echo $view['router']->generate('initiative_app_homepage') ?>">
@@ -196,12 +196,15 @@ if(isset($_COOKIE['api'])) {
 		</div>
 		<div class="evo-space-bigger"></div>
 		<div class="evo_action_ico loader">
-			<a href="<?php echo $view['router']->generate('initiative_app_homepage') ?>" class="btn_action">
-				<div class="evo-ico<?php
-				if ($routeName == "initiative_app_homepage" || $routeName == "initiative_app_project") {
-					echo " evo-ico-active";
-				}
-				?>
+                    
+                    
+			<a href="{{ navigation.homepage }}" class="btn_action">
+				<div class="evo-ico evo-ico-active">
+                                     
+{#                                     <?php#}
+				{#if ($routeName == "initiative_app_homepage" || $routeName == "initiative_app_project") {
+					{{'evo-ico-active'}}
+				?>#}
                                         {% include "InitiativeAppBundle:Default:Svgs/3.html.twig" %}
 				</div>
 				<span><div class="arrow-left_tool"></div>Dashboard</span>
@@ -210,12 +213,9 @@ if(isset($_COOKIE['api'])) {
 		</div>
 		<div class="evo-space-bigger evo-space-collapse"></div>
 		<div class="evo_action_ico loader">
-			<a href="<?php echo $view['router']->generate('initiative_app_myTasks') ?>" class="btn_action">
-				<div class="evo-ico evo-ico-active<?php
-				if ($routeName == "initiative_app_myTasks") {
-					echo " evo-ico-active";
-				}
-				?>
+			<a href="{{ navigation.url3 }}" class="btn_action">
+				<div class="evo-ico evo-ico-active">
+				
 					{% include "InitiativeAppBundle:Default:Svgs/9.html.twig" %}
 {#					<?php if(isset($task_messages)) { ?><div class="task_messages_count"><?php echo $task_messages; ?></div><?php } ?>#}
 				</div>
@@ -224,12 +224,13 @@ if(isset($_COOKIE['api'])) {
 		</div>
 		<div class="evo-space-bigger evo-space-collapse"></div>
 		<div class="evo_action_ico loader">
-			<a href="<?php echo $view['router']->generate('initiative_app_allProjects') ?>" class="btn_action">
-				<div class="evo-ico<?php
+			<a href="{{ navigation.url4 }}" class="btn_action">
+				<div class="evo-ico evo-ico-active">
+                                    {# <?php
 				if ($routeName == "initiative_app_allProjects") {
 					echo " evo-ico-active";
 				}
-				?>
+				?>#}
 					{% include "InitiativeAppBundle:Default:Svgs/1.html.twig" %}
 				</div>
 				<span><div class="arrow-left_tool"></div>All Campaigns</span>
@@ -237,12 +238,13 @@ if(isset($_COOKIE['api'])) {
 		</div>
 		<div class="evo-space-bigger evo-space-collapse"></div>
 		<div class="evo_action_ico loader">
-			<a href="<?php echo $view['router']->generate('initiative_app_allFiles') ?>" class="btn_action">
-				<div class="evo-ico<?php
+			<a href="{{ navigation.url5 }}" class="btn_action">
+				<div class="evo-ico evo-ico-active">
+                                    {#<?php
 				if ($routeName == "initiative_app_allFiles") {
 					echo " evo-ico-active";
 				}
-				?>
+				?>#}
 					{% include "InitiativeAppBundle:Default:Svgs/6.html.twig" %}
 				</div>
 				<span><div class="arrow-left_tool"></div>All Files</span>
@@ -250,12 +252,13 @@ if(isset($_COOKIE['api'])) {
 		</div>
 		<div class="evo-space-bigger evo-space-collapse"></div>
 		<div class="evo_action_ico loader">
-			<a href="<?php echo $view['router']->generate('initiative_app_goldenRules') ?>" class="btn_action">
-				<div class="evo-ico<?php
+			<a href="{{ navigation.url5 }}" class="btn_action">
+				<div class="evo-ico evo-ico-active">
+                                    {#<?php
 				if ($routeName == "initiative_app_goldenRules") {
 					echo " evo-ico-active";
 				}
-				?>
+				?>#}
 					{% include "InitiativeAppBundle:Default:Svgs/5.html.twig" %}
 				</div>
 				<span><div class="arrow-left_tool"></div>Golden Rules</span>
@@ -263,12 +266,13 @@ if(isset($_COOKIE['api'])) {
 		</div>
 		<div class="evo-space-bigger evo-space-collapse"></div>
 		<div class="evo_action_ico loader2">
-			<a href="<?php echo $this->container->getParameter('adminUrl'); ?>" target="_blank">
-				<div class="evo-ico<?php
+			<a href="{{ navigation.adminurl }}" target="_blank">
+				<div class="evo-ico evo-ico-active">
+                                    {#<?php
 				if ($routeName == "initiative_app_admin") {
 					echo " evo-ico-active";
 				}
-				?>
+				?>#}
 					{% include "InitiativeAppBundle:Default:Svgs/7.html.twig" %}
 				</div>
 				<span><div class="arrow-left_tool"></div>Admin</span>

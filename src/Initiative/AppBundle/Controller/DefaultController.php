@@ -34,7 +34,9 @@ class DefaultController extends Controller {
             'assignments' => '/my_tasks',
             'url3' => 'asd3',
             'url4' => 'asd4',
-            'url5' => 'asd5',
+            'url5' => 'urele',
+            'goldenrules' => 'goldenrules',
+            'adminurl' => 'http://www.google.ro',
         );
 
 
